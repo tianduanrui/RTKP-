@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>生产调度台账</title>
+    <link rel="stylesheet" href="./layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./echarts/dist/echarts.js"></script>
+    <script src="./Highcharts/code/highcharts.js"></script>
+    <script src="./layui/layui.js"></script>
+    <script src="/web/js/flexible.js"></script>
+    <!-- <script src="/web/js/index1.js"></script> -->
+    <style>
+        .layui-card-header {
+            background-color: #010D43;
+            color: lightrgb(29, 174, 179);
+
+        }
+
+        .layui-card-body {
+            background:none;
+            color: seashell;
+        }
+
+        p {
+            color: seashell;
+            font-size: large;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+        .text1{
+            color: rgb(89, 167, 25);
+        }
+        .text2{
+            color: rgb(12, 156, 175);
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- 主体 -->
+    <div class="layui-layout layui-layout-admin">
+        <!--头部区域  -->
+        <div class="layui-header" >
+            <!-- <div class="layui-logo">荣托昆普后台管理系统 </div> -->
+            <header>
+                <div class="title">
+                    <img src="./images/logo(已去底) (1).jpg" alt="" class="logo">
+                    <h3>大宝山矿业智能工厂</h3>      
+                  </div>
+                <div class="showTime"></div>
+                <script>
+                    var t = null;
+                    t = setTimeout(time, 1000); //開始运行
+                    function time() {
+                        clearTimeout(t); //清除定时器
+                        dt = new Date();
+                        var y = dt.getFullYear();
+                        var mt = dt.getMonth() + 1;
+                        var day = dt.getDate();
+                        var h = dt.getHours(); //获取时
+                        var m = dt.getMinutes(); //获取分
+                        var s = dt.getSeconds(); //获取秒
+                        document.querySelector(".showTime").innerHTML =
+                            "当前时间：" +
+                            y +
+                            "年" +
+                            mt +
+                            "月" +
+                            day +
+                            "日" +
+                            h +
+                            "时" +
+                            m +
+                            "分" +
+                            s +
+                            "秒";
+                        t = setTimeout(time, 1000); //设定定时器，循环运行
+                    }
+                </script>
+            </header>
+            <ul class="layui-nav layui-layout-right">
+                <li></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
+                            class="layui-nav-img"> 管理员
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">修改资料</a></dd>
+                        <dd><a href="">系统管理</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="login.html">登出</a></li>
+            </ul>
+        </div>
+        <!-- 左边导航栏 -->
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域-->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <!-- 过程监控 -->
+                    <li class="layui-nav-item layui-nav-itemed">
+                      <a class="" href="javascript:;">过程监控</a>
+                      <dl class="layui-nav-child">
+                        <dd><a href="综合集成监控.html">综合集成监控</a></dd>
+                        <dd><a href="javascript:;">工艺流程监控</a>
+                          <dl class="layui-nav-child">
+                            <dd><a href="破碎.html">破碎</a></dd>
+                            <dd><a href="球磨.html">球磨</a></dd>
+                            <dd><a href="选别.html">选别</a></dd>
+                            <dd><a href="浓缩.html">浓缩</a></dd>
+                            <dd><a href="过滤.html">过滤</a></dd>
+                            <dd><a href="尾矿浓缩.html">尾矿浓缩</a></dd>
+                          </dl>
+                        </dd>
+                        <dd><a href="javascript:;">设备状态监控</a>
+                          <dl class="layui-nav-child">
+                            <dd><a href="半自磨机.html">半自磨机</a></dd>
+                            <dd><a href="球磨机.html">球磨机</a></dd>
+                            <dd><a href="鄂式破碎机.html">鄂式破碎机</a></dd>
+                            <dd><a href="板式给料机.html">板式给料机</a></dd>
+                            <dd><a href="皮带运输机.html">皮带运输机</a></dd>
+                            <dd><a href="铅浮选.html">铅浮选</a></dd>
+                            <dd><a href="锌硫分选.html">锌硫分选</a></dd>
+                            <dd><a href="1#鼓风机.html">1#鼓风机</a></dd>
+                            <dd><a href="2#鼓风机.html">2#鼓风机</a></dd>
+                          </dl>
+                        </dd>
+                        <dd><a href="监控报警.html">监控报警</a></dd>
+                      </dl>
+                    </li>
+                    <!-- 生产调度 -->
+                    <li class="layui-nav-item">
+                      <a href="javascript:;">生产调度</a>
+                      <dl class="layui-nav-child">
+                        <dd><a href="javascript:">生产看板</a>
+                          <dl class="layui-nav-child">
+                            <dd><a href="生产周报调度.html">生产周报调度</a></dd>
+                            <dd><a href="生产日报调度.html">生产日报调度</a></dd>
+                            <dd><a href="生产调度台账.html">生产调度台账</a></dd>
+                          </dl>
+                        </dd>
+                        <dd><a href="调度报表.html">调度报表</a></dd>
+                        <dd><a href="交接班信息.html">交接班信息</a></dd>
+                        <dd><a href="设备维修记录.html">调度记录</a></dd>
+                        <dd><a href="设备维修调度.html">设备维修调度</a></dd>
+                      </dl>
+                    </li>
+                    <!-- 生产统计 -->
+                    <li class="layui-nav-item">
+                      <a href="javascript:;">生产统计</a>
+                      <dl class="layui-nav-child">
+                        <dd><a href="生产日报.html">生产日报</a></dd>
+                        <dd><a href="生产周报.html">生产周报</a></dd>
+                        <dd><a href="生产月报.html">生产月报</a></dd>
+                      </dl>
+                    </li>
+                    <!-- 设备运行 -->
+                    <li class="layui-nav-item">
+                      <a href="javascript:;">设备运行</a>
+                      <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">设备台账</a>
+                          <dl class="layui-nav-child">
+                            <dd><a href="原料输送站.html">原料输送站</a></dd>
+                            <dd><a href="javascript:;">破碎车间</a>
+                              <dl class="layui-nav-child">
+                                <dd><a href="筛分站.html">筛分站</a></dd>
+                                <dd><a href="干选站.html">干选站</a></dd>
+                              </dl>
+                            </dd>
+                            <dd><a href="磨选车间.html">磨选车间</a></dd>
+                            <dd><a href="过滤车间.html">过滤车间</a></dd>
+                            <dd><a href="精矿库.html">精矿库</a></dd>
+                            <dd><a href="尾矿库.html">尾矿库</a></dd>
+                          </dl>
+                        </dd>
+                        <dd><a href="javascript:">设备停机分析</a>
+                          <dl class="layui-nav-child">
+                            <dd><a href="粗碎工艺.html">粗碎工艺</a></dd>
+                            <dd><a href="选矿工艺.html">选矿工艺</a></dd>
+                          </dl>
+                        </dd>
+                        <dd><a href="javascript:;">设备运时统计</a>
+                          <dl class="layui-nav-child">
+                            <dd><a href="设备运时日统计.html">设备运时日统计</a></dd>
+                            <dd><a href="设备运时月统计.html">设备运时月统计</a></dd>
+                            <dd><a href="设备运时年统计.html">设备运时年统计</a></dd>
+                          </dl>
+                        </dd>
+                        <dd><a href="javascript:;">设备停机统计</a>
+                          <dl class="layui-nav-child">
+                            <dd><a href="设备停机日统计.html">设备停机日统计</a></dd>
+                            <dd><a href="设备停机月统计.html">设备停机月统计</a></dd>
+                            <dd><a href="设备停机年统计.html">设备停机年统计</a></dd>
+                          </dl>
+                        </dd>
+                        <dd><a href="javascript:;">设备运行维护</a>
+                          <dl class="layui-nav-child">
+          
+                        <dd><a href="设备维修记录.html">设备维修记录</a></dd>
+                        </dl>
+                        </dd>
+                      </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                      <a href="javascript:;">质量管理</a>
+                      <dl class="layui-nav-child">
+                        <dd><a href="生产质量数据统计.html">生产质量数据统计</a></dd>
+                        <dd><a href="产品品位分析.html">产品品位分析</a></dd>
+                        <dd><a href="化验报告生成.html">化验报告生成</a></dd>
+                        <dd><a href="化验数据管理.html">化验数据管理</a></dd>
+                      </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                      <a href="javascript:;">能源管理</a>
+                      <dl class="layui-nav-child">
+                        <dd><a href="能源分配.html">能源分配</a></dd>
+                        <dd><a href="能源监控.html">能源监控</a></dd>
+                        <dd><a href="能源统计.html">能源统计</a></dd>
+                        <dd><a href="设备能耗分析.html">设备能耗分析</a></dd>
+                      </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                      <a href="javascript:;">辅助决策</a>
+                      <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">选厂生产分析</a>
+                          <dl class="layui-nav-child">
+                            <dd><a href="破碎生产分析.html">破碎生产分析</a></dd>
+                            <dd><a href="选矿生产分析.html">选矿生产分析</a></dd>
+                            <dd><a href="精尾生产分析.html">精尾生产分析</a></dd>
+                          </dl>
+                    </li>
+                  </ul>
+            </div>
+        </div>
+        <!-- 内容主体区域 -->
+        <div class="layui-body">
+            <div id="toppart" style="padding-top:10px;">
+                <!-- <div class="layui-input-inline" style="float: left;height: 50%; margin-left: 20px;">
+          <input type="text" class="layui-input" id="test1" placeholder="请选择日期">
+        </div> -->
+                <p style="height: 38px;width:240px; margin: 0 auto;font-size: 30px;color: cornsilk;">生产调度台账</p>
+            </div>
+            <!-- <script>
+        layui.use('laydate', function () {
+          var laydate = layui.laydate;
+          laydate.render({
+            elem: '#test1'
+          });
+        });
+      </script> -->
+            <div class="main-body" style="background-color: #001149;">
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <ul class="layui-row layui-col-space10 layui-this">
+                            <li class="layui-col-md2" style="background-color:rgb(14, 32, 85);">
+                                <a href="#" class="backlog-body">
+                                    <p style="border: solid white;border-width: 0  0 1px  0;">查询日期</p>
+                                    <p   ><cite>2021/6/14</cite></p>
+                                </a>
+                            </li>
+                            <li class="layui-col-md2">
+                                <a href="#" class="backlog-body">
+                                    <p style="border: solid white;border-width: 0  0 1px  0;">核算月份</p>
+                                    <p   ><cite>6月</cite></p>
+                                </a>
+                            </li>
+                            <li class="layui-col-md2" style="background-color:rgb(14, 32, 85);">
+                                <a href="#" class="backlog-body">
+                                    <p style="border: solid white;border-width: 0  0 1px  0;">核算周</p>
+                                    <p   ><cite>3周</cite></p>
+                                </a>
+                            </li>
+                            <li class="layui-col-md2">
+                                <a href="#" class="backlog-body">
+                                    <p style="border: solid white;border-width: 0  0 1px  0;">时钟</p>
+                                    <p   ><cite>11:46</cite></p>
+                                </a>
+                            </li>
+                            <li class="layui-col-md2" style="background-color:rgb(14, 32, 85);">
+                                <a href="#" class="backlog-body">
+                                    <p style="border: solid white;border-width: 0  0 1px  0;">改班调度人员</p>
+                                    <p   ><cite>张兰</cite></p>
+                                </a>
+                            </li>
+                            <li class="layui-col-md2">
+                                <a href="#" class="backlog-body">
+                                    <p style="border: solid white;border-width: 0  0 1px  0;">白班调度人员</p>
+                                    <p><cite>李月</cite></p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <ul class="layui-row layui-col-space10 layui-this">
+                            <li class="layui-col-md4">
+                                <div class="layui-card">
+                                    <div class="layui-card-header" style="text-align: center;">
+                                        <p>破碎</p>
+                                    </div>
+                                    <div class="layui-card-body">
+                                        <div class="layui-row grid-demo grid-demo-bg1 layui-col-space10">
+                                            <div class="layui-col-md7">
+                                                <p>处理量</p>
+                                                <!-- <div id="chartt1"style="width: 100%;height: 100px;border: 1px solid seashell;">日:1111t</div> -->
+                                                <div id="chartt" style="width: 100%;height: 100%; ; ">
+                                                    <div
+                                                        style="height: 15px; width: 50px; background-color: rgb(29, 174, 179); float: left;margin-left: 50px;margin-top: 10px;">
+                                                    </div>
+                                                    <p style="margin-top: 5px; padding-left: 5px;float: left;">夜</p>
+                                                    <div
+                                                        style="height: 15px; width: 50px; background-color: rgb(132, 127, 180); float: left;margin-left: 10px;margin-top: 10px;">
+                                                    </div>
+                                                    <p style="margin-top: 5px; padding-left: 5px; float: left;"> 日</p>
+                                                    <div
+                                                        style="height: 20px; width: 80px; background-color: rgb(29, 174, 179); float: left;margin-left: 50px;margin-top: 20px;text-align: center;">
+                                                        800t</div>
+                                                    <div
+                                                        style="height: 20px; width: 111px; background-color: rgb(132, 127, 180); float: left;margin-top: 20px;text-align: center;">
+                                                        1111t</div>
+                                                    <div style="clear: both;"></div><br>
+                                                    <p style="text-align: center;">日量:1111t 月量:5555t</p>
+                                                </div>
+
+                                                <p>开停车时间</p>
+                                                <div id="chartt" style="width: 100%;height: 100%;">
+                                                    <div
+                                                        style="height: 15px; width: 50px; background-color: rgb(29, 174, 179); float: left;margin-left: 50px;margin-top: 10px;">
+                                                    </div>
+                                                    <p style="margin-top: 5px; padding-left: 5px;float: left;"> 开车</p>
+                                                    <div
+                                                        style="height: 15px; width: 50px; background-color: rgb(132, 127, 180); float: left;margin-left: 10px;margin-top: 10px;">
+                                                    </div>
+                                                    <p style="margin-top: 5px; padding-left: 5px;float: left;"> 停车</p>
+                                                    <div style="clear: both;"></div>
+                                                    <p
+                                                        style="height: 20px; width: 10px;  float: left;margin-top: 20px;text-align: left;">
+                                                        夜</p>
+                                                    <div
+                                                        style="height: 20px; width: 80px; background-color: rgb(29, 174, 179); float: left;margin-left: 40px;margin-top: 20px;text-align: center;">
+                                                        4时15分</div>
+                                                    <div
+                                                        style="height: 20px; width: 111px; background-color: rgb(132, 127, 180); float: left;margin-top: 20px;text-align: center;">
+                                                        7时2分</div>
+                                                    <div style="clear: both;"></div>
+                                                    <p
+                                                        style="height: 20px; width: 10px; float: left;margin-top: 20px;text-align: left;">
+                                                        白</p>
+                                                    <div
+                                                        style="height: 20px; width: 141px; background-color: rgb(29, 174, 179); float: left;margin-left: 40px;margin-top: 20px;text-align: center;">
+                                                        4时15分</div>
+                                                    <div
+                                                        style="height: 20px; width: 50px; background-color: rgb(132, 127, 180); float: left;margin-top: 20px;text-align: center;">
+                                                        7时2分</div>
+                                                    <div style="clear: both;"></div><br>
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-md5">
+                                                <div style="height: 30px;"></div>
+                                                <p >超欠0.25%</p>
+                                                <div style="height: 10px;"></div>
+                                                <div id="chartt3" style="width:100%;height:200px;"></div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                            </li>
+                            <li class="layui-col-md4">
+                                <div class="layui-card">
+                                    <div class="layui-card-header" style="text-align: center;">
+                                        <p>选矿</p>
+                                    </div>
+                                    <div class="layui-card-body">
+                                        <div class="layui-row grid-demo grid-demo-bg1 layui-col-space10">
+                                            <div class="layui-col-md7">
+                                                <p>处理量</p>
+                                                <!-- <div id="chartt1"style="width: 100%;height: 100px;border: 1px solid seashell;">日:1111t</div> -->
+                                                <div id="chartt" style="width: 100%;height: 100%; ; ">
+                                                    <div
+                                                        style="height: 15px; width: 50px; background-color: rgb(29, 174, 179); float: left;margin-left: 50px;margin-top: 10px;">
+                                                    </div>
+                                                    <p style="margin-top: 5px; padding-left: 5px;float: left;">夜</p>
+                                                    <div
+                                                        style="height: 15px; width: 50px; background-color: rgb(132, 127, 180); float: left;margin-left: 10px;margin-top: 10px;">
+                                                    </div>
+                                                    <p style="margin-top: 5px; padding-left: 5px; float: left;"> 日</p>
+                                                    <div
+                                                        style="height: 20px; width: 80px; background-color: rgb(29, 174, 179); float: left;margin-left: 50px;margin-top: 20px;text-align: center;">
+                                                        800t</div>
+                                                    <div
+                                                        style="height: 20px; width: 111px; background-color: rgb(132, 127, 180); float: left;margin-top: 20px;text-align: center;">
+                                                        1111t</div>
+                                                    <div style="clear: both;"></div><br>
+                                                    <p style="text-align: center;">日量:1111t 月量:5555t</p>
+                                                </div>
+
+                                                <p>开停车时间</p>
+                                                <div id="chartt" style="width: 100%;height: 100%;">
+                                                    <div
+                                                        style="height: 15px; width: 50px; background-color: rgb(29, 174, 179); float: left;margin-left: 50px;margin-top: 10px;">
+                                                    </div>
+                                                    <p style="margin-top: 5px; padding-left: 5px;float: left;"> 开车</p>
+                                                    <div
+                                                        style="height: 15px; width: 50px; background-color: rgb(132, 127, 180); float: left;margin-left: 10px;margin-top: 10px;">
+                                                    </div>
+                                                    <p style="margin-top: 5px; padding-left: 5px;float: left;"> 停车</p>
+                                                    <div style="clear: both;"></div>
+                                                    <p
+                                                        style="height: 20px; width: 10px;  float: left;margin-top: 20px;text-align: left;">
+                                                        夜</p>
+                                                    <div
+                                                        style="height: 20px; width: 80px; background-color: rgb(29, 174, 179); float: left;margin-left: 40px;margin-top: 20px;text-align: center;">
+                                                        4时15分</div>
+                                                    <div
+                                                        style="height: 20px; width: 111px; background-color: rgb(132, 127, 180); float: left;margin-top: 20px;text-align: center;">
+                                                        7时2分</div>
+                                                    <div style="clear: both;"></div>
+                                                    <p
+                                                        style="height: 20px; width: 10px; float: left;margin-top: 20px;text-align: left;">
+                                                        白</p>
+                                                    <div
+                                                        style="height: 20px; width: 141px; background-color: rgb(29, 174, 179); float: left;margin-left: 40px;margin-top: 20px;text-align: center;">
+                                                        4时15分</div>
+                                                    <div
+                                                        style="height: 20px; width: 50px; background-color: rgb(132, 127, 180); float: left;margin-top: 20px;text-align: center;">
+                                                        7时2分</div>
+                                                    <div style="clear: both;"></div><br>
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-md5">
+                                                <div style="height: 30px;"></div>
+                                                <p>超欠0.25%</p>
+                                                <div style="height: 10px;"></div>
+                                                <div id="chartt6" style="width:100%;height:200px;"></div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                            </li>
+                            <li class="layui-col-md4">
+                                <div class="layui-card">
+                                    <div class="layui-card-header" style="text-align: center;">
+                                        <p>精尾</p>
+                                    </div>
+                                    <div class="layui-card-body">
+                                        <div class="layui-row grid-demo grid-demo-bg1 layui-col-space10">
+                                            <div class="layui-col-md6">
+                                                <p>铜精矿量</p>
+                                                <!-- <div id="chartt1"style="width: 100%;height: 100px;border: 1px solid seashell;">日:1111t</div> -->
+                                                <div id="chartt" style="width: 100%;height: 100%; ; ">
+                                                    <div
+                                                        style="height: 15px; width: 50px; background-color: rgb(29, 174, 179); float: left;margin-left: 50px;margin-top: 10px;">
+                                                    </div>
+                                                    <p style="margin-top: 5px; padding-left: 5px;float: left;">夜</p>
+                                                    <div
+                                                        style="height: 15px; width: 50px; background-color: rgb(132, 127, 180); float: left;margin-left: 10px;margin-top: 10px;">
+                                                    </div>
+                                                    <p style="margin-top: 5px; padding-left: 5px; float: left;"> 日</p>
+                                                    <div
+                                                        style="height: 20px; width: 80px; background-color: rgb(29, 174, 179); float: left;margin-left: 50px;margin-top: 20px;text-align: center;">
+                                                        800t</div>
+                                                    <div
+                                                        style="height: 20px; width: 111px; background-color: rgb(132, 127, 180); float: left;margin-top: 20px;text-align: center;">
+                                                        1111t</div>
+                                                    <div style="clear: both;"></div><br>
+                                                    <p style="text-align: center;">日量:1111t 月量:5555t</p>
+                                                </div>
+
+                                                <p>铜开停车时间</p>
+                                                <div id="chartt" style="width: 100%;height: 100%;">
+                                                    <div
+                                                        style="height: 15px; width: 50px; background-color: rgb(29, 174, 179); float: left;margin-left: 50px;margin-top: 10px;">
+                                                    </div>
+                                                    <p style="margin-top: 5px; padding-left: 5px;float: left;"> 开车</p>
+                                                    <div
+                                                        style="height: 15px; width: 50px; background-color: rgb(132, 127, 180); float: left;margin-left: 10px;margin-top: 10px;">
+                                                    </div>
+                                                    <p style="margin-top: 5px; padding-left: 5px;float: left;"> 停车</p>
+                                                    <div style="clear: both;"></div>
+                                                    <p
+                                                        style="height: 20px; width: 10px;  float: left;margin-top: 20px;text-align: left;">
+                                                        夜</p>
+                                                    <div
+                                                        style="height: 20px; width: 80px; background-color: rgb(29, 174, 179); float: left;margin-left: 40px;margin-top: 20px;text-align: center;">
+                                                        4时15分</div>
+                                                    <div
+                                                        style="height: 20px; width: 111px; background-color: rgb(132, 127, 180); float: left;margin-top: 20px;text-align: center;">
+                                                        7时2分</div>
+                                                    <div style="clear: both;"></div>
+                                                    <p
+                                                        style="height: 20px; width: 10px; float: left;margin-top: 20px;text-align: left;">
+                                                        白</p>
+                                                    <div
+                                                        style="height: 20px; width: 141px; background-color: rgb(29, 174, 179); float: left;margin-left: 40px;margin-top: 20px;text-align: center;">
+                                                        4时15分</div>
+                                                    <div
+                                                        style="height: 20px; width: 50px; background-color: rgb(132, 127, 180); float: left;margin-top: 20px;text-align: center;">
+                                                        7时2分</div>
+                                                    <div style="clear: both;"></div><br>
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-md6">
+                                                <p>硫精矿量</p>
+                                                <!-- <div id="chartt1"style="width: 100%;height: 100px;border: 1px solid seashell;">日:1111t</div> -->
+                                                <div id="chartt" style="width: 100%;height: 100%; ; ">
+                                                    <div
+                                                        style="height: 15px; width: 50px; background-color: rgb(29, 174, 179); float: left;margin-left: 50px;margin-top: 10px;">
+                                                    </div>
+                                                    <p style="margin-top: 5px; padding-left: 5px;float: left;">夜</p>
+                                                    <div
+                                                        style="height: 15px; width: 50px; background-color: rgb(132, 127, 180); float: left;margin-left: 10px;margin-top: 10px;">
+                                                    </div>
+                                                    <p style="margin-top: 5px; padding-left: 5px; float: left;"> 日</p>
+                                                    <div
+                                                        style="height: 20px; width: 80px; background-color: rgb(29, 174, 179); float: left;margin-left: 50px;margin-top: 20px;text-align: center;">
+                                                        800t</div>
+                                                    <div
+                                                        style="height: 20px; width: 111px; background-color: rgb(132, 127, 180); float: left;margin-top: 20px;text-align: center;">
+                                                        1111t</div>
+                                                    <div style="clear: both;"></div><br>
+                                                    <p style="text-align: center;">日量:1111t 月量:5555t</p>
+                                                </div>
+
+                                                <p>硫开停车时间</p>
+                                                <div id="chartt" style="width: 100%;height: 100%;">
+                                                    <div
+                                                        style="height: 15px; width: 50px; background-color: rgb(29, 174, 179); float: left;margin-left: 50px;margin-top: 10px;">
+                                                    </div>
+                                                    <p style="margin-top: 5px; padding-left: 5px;float: left;"> 开车</p>
+                                                    <div
+                                                        style="height: 15px; width: 50px; background-color: rgb(132, 127, 180); float: left;margin-left: 10px;margin-top: 10px;">
+                                                    </div>
+                                                    <p style="margin-top: 5px; padding-left: 5px;float: left;"> 停车</p>
+                                                    <div style="clear: both;"></div>
+                                                    <p
+                                                        style="height: 20px; width: 10px;  float: left;margin-top: 20px;text-align: left;">
+                                                        夜</p>
+                                                    <div
+                                                        style="height: 20px; width: 80px; background-color: rgb(29, 174, 179); float: left;margin-left: 40px;margin-top: 20px;text-align: center;">
+                                                        4时15分</div>
+                                                    <div
+                                                        style="height: 20px; width: 111px; background-color: rgb(132, 127, 180); float: left;margin-top: 20px;text-align: center;">
+                                                        7时2分</div>
+                                                    <div style="clear: both;"></div>
+                                                    <p
+                                                        style="height: 20px; width: 10px; float: left;margin-top: 20px;text-align: left;">
+                                                        白</p>
+                                                    <div
+                                                        style="height: 20px; width: 141px; background-color: rgb(29, 174, 179); float: left;margin-left: 40px;margin-top: 20px;text-align: center;">
+                                                        4时15分</div>
+                                                    <div
+                                                        style="height: 20px; width: 50px; background-color: rgb(132, 127, 180); float: left;margin-top: 20px;text-align: center;">
+                                                        7时2分</div>
+                                                    <div style="clear: both;"></div><br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <ul class="layui-row layui-col-space10 layui-this">
+                            </li>
+                            <li class="layui-col-md4">
+                                <div class="layui-card">
+                                    <div class="layui-card-header" style="text-align: center;">
+                                        <p>质量管理</p>
+                                    </div>
+                                    <div class="layui-card-body">
+                                        <ul class="layui-row layui-col-space10 layui-this">
+                                            <li class="layui-col-md5">
+                                                <div class="layui-row layui-col-space10 layui-this">
+                                                    <div class="layui-col-md6">
+                                                        <p style="font-size: 0.22rem;">原矿品位:Cu</p>
+                                                        <p class="text1">(夜):<cite>4.2%</cite></p>
+                                                        <p class="text1">(白):<cite>1%</cite></p>
+                                                        <p class="text1">(日):<cite>2.8%</cite></p>
+                                                        <p style="font-size: 0.23rem;">原矿品位:S</p>
+                                                        <p class="text1">(夜):<cite>4.2%</cite></p>
+                                                        <p class="text1">(白):<cite>1%</cite></p>
+                                                        <p class="text1">(日):<cite>2.8%</cite></p>
+                                                    </div>
+                                                    <div class="layui-col-md6">
+                                                        <div
+                                                            style="border-radius:50%;background-color: #91CC75; width: 80px; height: 80px;text-align: center;line-height: 80px;">
+                                                            偏差-0.66%
+                                                        </div>
+                                                        <div
+                                                            style=" border-radius:50%;background-color: #91CC75; width: 80px; height: 80px;margin-top: 30px;text-align: center;line-height: 80px;">
+                                                            偏差-0.49%
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="layui-col-md5">
+                                                <div class="layui-col-md6">
+                                                    <p style="font-size: 0.24rem;">精矿品位:Cu</p>
+                                                    <p class="text1">(夜):<cite>4.2%</cite></p>
+                                                    <p class="text1">(白):<cite>1%</cite></p>
+                                                    <p class="text1">(日):<cite>2.8%</cite></p>
+                                                    <p style="font-size: 0.24rem;">精矿品位:S</p>
+                                                    <p class="text1">(夜):<cite>4.2%</cite></p>
+                                                    <p class="text1">(白):<cite>1%</cite></p>
+                                                    <p class="text1">(日):<cite>2.8%</cite></p>
+                                                </div>
+                                                <div class="layui-col-md6">
+                                                    <div
+                                                        style="border-radius:50%;background-color: #91CC75;width: 80px; height: 80px;text-align: center;line-height: 80px;">
+                                                        偏差-0.66%
+                                                    </div>
+                                                    <div
+                                                        style=" border-radius:50%;background-color: #91CC75; width: 80px; height: 80px;margin-top: 30px;text-align: center;line-height: 80px;">
+                                                        偏差-0.49%
+                                                    </div>
+
+                                                </div>
+                                            </li>
+                                            <li class="layui-col-md2">
+                                                <p style="font-size:0.23rem">尾矿含Cu</p>
+                                                <p class="text1">(夜):<cite>4.2%</cite></p>
+                                                <p class="text1">(白):<cite>1%</cite></p>
+                                                <p class="text1">(日):<cite>2.8%</cite></p>
+                                                <p style="font-size:0.23rem">尾矿含S</p>
+                                                <p class="text1">(夜):<cite>4.2%</cite></p>
+                                                <p class="text1">(白):<cite>1%</cite></p>
+                                                <p class="text1">(日):<cite>2.8%</cite></p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="layui-col-md8">
+                                <div class="layui-card">
+                                    <div class="layui-card-header" style="text-align: center;">
+                                        <p>能源管理</p>
+                                    </div>
+                                    <div class="layui-card-body">
+                                        <ul class="layui-row layui-col-space10 layui-this">
+                                            <li class="layui-col-md2">
+                                                <p style="font-size:0.25rem">选矿水量</p>
+                                                <p class="text2">(夜):<cite>355</cite></p>
+                                                <p class="text2">(白):<cite>344</cite></p>
+                                                <p class="text2">(日):<cite>700</cite></p>
+                                                <p class="text2">月累:<cite>8300t</cite></p>
+                                                
+                                            </li>
+                                            <li class="layui-col-md2">
+                                                <p style="font-size:0.25rem;">球磨电量</p>
+                                                <p class="text2">(夜):<cite>53400</cite></p>
+                                                <p class="text2">(白):<cite>45000</cite></p>
+                                                <p class="text2">(日):<cite>98400</cite></p>
+                                                <p class="text2">月累:<cite>1120000</cite></p>
+                                            </li>
+                                            <li class="layui-col-md2">
+                                                <p style="font-size:0.25rem">半自磨电量</p>
+                                                <p class="text2">(夜):<cite>53400</cite></p>
+                                                <p class="text2">(白):<cite>45000</cite></p>
+                                                <p class="text2">(日):<cite>98400</cite></p>
+                                                <p class="text2">月累:<cite>1120000</cite></p>
+                                            </li>
+                                            <li class="layui-col-md2">
+                                                <p style="font-size:0.25rem">精矿线电量</p>
+                                                <p class="text2">(夜):<cite>53400</cite></p>
+                                                <p class="text2">(白):<cite>45000</cite></p>
+                                                <p class="text2">(日):<cite>98400</cite></p>
+                                                <p class="text2">月累:<cite>1120000</cite></p>
+                                            </li>
+                                            <li class="layui-col-md2">
+                                                <p style="font-size:0.25rem">粗矿线电量</p>
+                                                <p class="text2">(夜):<cite>53400</cite></p>
+                                                <p class="text2">(白):<cite>45000</cite></p>
+                                                <p class="text2">(日):<cite>98400</cite></p>
+                                                <p class="text2">月累:<cite>1120000</cite></p>
+                                            </li>
+                                            <li class="layui-col-md2">
+                                                <p style="font-size:0.25rem">供电线水量</p>
+                                                <p class="text2">(夜):<cite>53400</cite></p>
+                                                <p class="text2">(白):<cite>45000</cite></p>
+                                                <p class="text2">(日):<cite>98400</cite></p>
+                                                <p class="text2">月累:<cite>1120000</cite></p>
+                                            </li>
+                                           
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                layui.use(['jquery', 'element', 'layer', 'form', 'table'], function () {
+                    var form = layui.form;
+                    initChart();  //加载页面echart图表
+                    function initChart() {
+                        var option3 = {
+                            tooltip: {
+                                trigger: 'item'
+                            },
+
+                            series: [
+                                {
+                                    name: '破碎率',
+                                    type: 'pie',
+                                    radius: ['20%', '50%'],
+                                    avoidLabelOverlap: false,
+                                    label: {
+                                        name: 'www',
+                                        show: true,
+                                        position: 'center'
+
+                                    },
+                                    emphasis: {
+                                        label: {
+                                            show: true,
+                                            fontSize: '40',
+                                            fontWeight: 'bold'
+                                        }
+                                    },
+                                    labelLine: {
+                                        show: false
+                                    },
+                                    data: [
+                                        { value: 10, name: '10%' },
+                                        { value: 90, name: '90%' },
+                                    ]
+                                }
+                            ]
+                        };
+                        var chart3 = echarts.init(document.getElementById('chartt3'));
+                        chart3.setOption(option3);
+                        var option6 = {
+                            tooltip: {
+                                trigger: 'item'
+                            },
+
+                            series: [
+                                {
+                                    name: '处理率',
+                                    type: 'pie',
+                                    radius: ['40%', '60%'],
+                                    avoidLabelOverlap: false,
+                                    label: {
+                                        name: 'www',
+                                        show: true,
+                                        position: 'center'
+
+                                    },
+                                    emphasis: {
+                                        label: {
+                                            show: true,
+                                            fontSize: '40',
+                                            fontWeight: 'bold'
+                                        }
+                                    },
+                                    labelLine: {
+                                        show: false
+                                    },
+                                    data: [
+                                        { value: 7, name: '7%' },
+                                        { value: 93, name: '93%' },
+                                    ]
+                                }
+                            ]
+                        };
+                        var chart6 = echarts.init(document.getElementById('chartt6'));
+                        chart6.setOption(option6);
+                    }
+                });
+
+            </script>
+
+        </div>
+
+    </div>
+    </div>
+
+</body>
+
+</html>

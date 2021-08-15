@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>选矿生产分析</title>
+    <link rel="stylesheet" href="./layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./echarts/dist/echarts.js"></script>
+    <script src="./Highcharts/code/highcharts.js"></script>
+    <script src="./layui/layui.js"></script>
+    <script src="/web/js/flexible.js"></script>
+    <!-- <script src="/web/js/index1.js"></script> -->
+    <style>
+       .main-body{
+            background-color: #000E46;
+       }
+
+        .layui-card-header {
+            background-color: #010D43;
+            color: lightskyblue;
+
+        }
+
+        .layui-card-body {
+            background-image: url(/web/images/bg.jpg);
+            color: seashell;
+        }
+
+        p {
+            color: seashell;
+            font-size: larger;
+        }
+
+        /* .layui-col-md4 {
+            border: seashell 1px solid;
+        } */
+    </style>
+</head>
+
+<body>
+    <!-- 主体 -->
+    <div class="layui-layout layui-layout-admin">
+        <!--头部区域  -->
+        <div class="layui-header" >
+            <!-- <div class="layui-logo">荣托昆普后台管理系统 </div> -->
+            <header>
+                <div class="title">
+                    <img src="./images/logo(已去底) (1).jpg" alt="" class="logo">
+                    <h3>大宝山矿业智能工厂</h3>      
+                  </div>
+                <div class="showTime"></div>
+                <script>
+                    var t = null;
+                    t = setTimeout(time, 1000); //開始运行
+                    function time() {
+                        clearTimeout(t); //清除定时器
+                        dt = new Date();
+                        var y = dt.getFullYear();
+                        var mt = dt.getMonth() + 1;
+                        var day = dt.getDate();
+                        var h = dt.getHours(); //获取时
+                        var m = dt.getMinutes(); //获取分
+                        var s = dt.getSeconds(); //获取秒
+                        document.querySelector(".showTime").innerHTML =
+                            "当前时间：" +
+                            y +
+                            "年" +
+                            mt +
+                            "月" +
+                            day +
+                            "日" +
+                            h +
+                            "时" +
+                            m +
+                            "分" +
+                            s +
+                            "秒";
+                        t = setTimeout(time, 1000); //设定定时器，循环运行
+                    }
+                </script>
+            </header>
+            <ul class="layui-nav layui-layout-right">
+                <li></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
+                            class="layui-nav-img"> 管理员
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">修改资料</a></dd>
+                        <dd><a href="">系统管理</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="login.html">登出</a></li>
+            </ul>
+        </div>
+        <!-- 左边导航栏 -->
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域-->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <!-- 过程监控 -->
+                    <li class="layui-nav-item layui-nav-itemed">
+                      <a class="" href="javascript:;">过程监控</a>
+                      <dl class="layui-nav-child">
+                        <dd><a href="综合集成监控.html">综合集成监控</a></dd>
+                        <dd><a href="javascript:;">工艺流程监控</a>
+                          <dl class="layui-nav-child">
+                            <dd><a href="破碎.html">破碎</a></dd>
+                            <dd><a href="球磨.html">球磨</a></dd>
+                            <dd><a href="选别.html">选别</a></dd>
+                            <dd><a href="浓缩.html">浓缩</a></dd>
+                            <dd><a href="过滤.html">过滤</a></dd>
+                            <dd><a href="尾矿浓缩.html">尾矿浓缩</a></dd>
+                          </dl>
+                        </dd>
+                        <dd><a href="javascript:;">设备状态监控</a>
+                          <dl class="layui-nav-child">
+                            <dd><a href="半自磨机.html">半自磨机</a></dd>
+                            <dd><a href="球磨机.html">球磨机</a></dd>
+                            <dd><a href="鄂式破碎机.html">鄂式破碎机</a></dd>
+                            <dd><a href="板式给料机.html">板式给料机</a></dd>
+                            <dd><a href="皮带运输机.html">皮带运输机</a></dd>
+                            <dd><a href="铅浮选.html">铅浮选</a></dd>
+                            <dd><a href="锌硫分选.html">锌硫分选</a></dd>
+                            <dd><a href="1#鼓风机.html">1#鼓风机</a></dd>
+                            <dd><a href="2#鼓风机.html">2#鼓风机</a></dd>
+                          </dl>
+                        </dd>
+                        <dd><a href="监控报警.html">监控报警</a></dd>
+                      </dl>
+                    </li>
+                    <!-- 生产调度 -->
+                    <li class="layui-nav-item">
+                      <a href="javascript:;">生产调度</a>
+                      <dl class="layui-nav-child">
+                        <dd><a href="javascript:">生产看板</a>
+                          <dl class="layui-nav-child">
+                            <dd><a href="生产周报调度.html">生产周报调度</a></dd>
+                            <dd><a href="生产日报调度.html">生产日报调度</a></dd>
+                            <dd><a href="生产调度台账.html">生产调度台账</a></dd>
+                          </dl>
+                        </dd>
+                        <dd><a href="调度报表.html">调度报表</a></dd>
+                        <dd><a href="交接班信息.html">交接班信息</a></dd>
+                        <dd><a href="设备维修记录.html">调度记录</a></dd>
+                        <dd><a href="设备维修调度.html">设备维修调度</a></dd>
+                      </dl>
+                    </li>
+                    <!-- 生产统计 -->
+                    <li class="layui-nav-item">
+                      <a href="javascript:;">生产统计</a>
+                      <dl class="layui-nav-child">
+                        <dd><a href="生产日报.html">生产日报</a></dd>
+                        <dd><a href="生产周报.html">生产周报</a></dd>
+                        <dd><a href="生产月报.html">生产月报</a></dd>
+                      </dl>
+                    </li>
+                    <!-- 设备运行 -->
+                    <li class="layui-nav-item">
+                      <a href="javascript:;">设备运行</a>
+                      <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">设备台账</a>
+                          <dl class="layui-nav-child">
+                            <dd><a href="原料输送站.html">原料输送站</a></dd>
+                            <dd><a href="javascript:;">破碎车间</a>
+                              <dl class="layui-nav-child">
+                                <dd><a href="筛分站.html">筛分站</a></dd>
+                                <dd><a href="干选站.html">干选站</a></dd>
+                              </dl>
+                            </dd>
+                            <dd><a href="磨选车间.html">磨选车间</a></dd>
+                            <dd><a href="过滤车间.html">过滤车间</a></dd>
+                            <dd><a href="精矿库.html">精矿库</a></dd>
+                            <dd><a href="尾矿库.html">尾矿库</a></dd>
+                          </dl>
+                        </dd>
+                        <dd><a href="javascript:">设备停机分析</a>
+                          <dl class="layui-nav-child">
+                            <dd><a href="粗碎工艺.html">粗碎工艺</a></dd>
+                            <dd><a href="选矿工艺.html">选矿工艺</a></dd>
+                          </dl>
+                        </dd>
+                        <dd><a href="javascript:;">设备运时统计</a>
+                          <dl class="layui-nav-child">
+                            <dd><a href="设备运时日统计.html">设备运时日统计</a></dd>
+                            <dd><a href="设备运时月统计.html">设备运时月统计</a></dd>
+                            <dd><a href="设备运时年统计.html">设备运时年统计</a></dd>
+                          </dl>
+                        </dd>
+                        <dd><a href="javascript:;">设备停机统计</a>
+                          <dl class="layui-nav-child">
+                            <dd><a href="设备停机日统计.html">设备停机日统计</a></dd>
+                            <dd><a href="设备停机月统计.html">设备停机月统计</a></dd>
+                            <dd><a href="设备停机年统计.html">设备停机年统计</a></dd>
+                          </dl>
+                        </dd>
+                        <dd><a href="javascript:;">设备运行维护</a>
+                          <dl class="layui-nav-child">
+          
+                        <dd><a href="设备维修记录.html">设备维修记录</a></dd>
+                        </dl>
+                        </dd>
+                      </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                      <a href="javascript:;">质量管理</a>
+                      <dl class="layui-nav-child">
+                        <dd><a href="生产质量数据统计.html">生产质量数据统计</a></dd>
+                        <dd><a href="产品品位分析.html">产品品位分析</a></dd>
+                        <dd><a href="化验报告生成.html">化验报告生成</a></dd>
+                        <dd><a href="化验数据管理.html">化验数据管理</a></dd>
+                      </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                      <a href="javascript:;">能源管理</a>
+                      <dl class="layui-nav-child">
+                        <dd><a href="能源分配.html">能源分配</a></dd>
+                        <dd><a href="能源监控.html">能源监控</a></dd>
+                        <dd><a href="能源统计.html">能源统计</a></dd>
+                        <dd><a href="设备能耗分析.html">设备能耗分析</a></dd>
+                      </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                      <a href="javascript:;">辅助决策</a>
+                      <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">选厂生产分析</a>
+                          <dl class="layui-nav-child">
+                            <dd><a href="破碎生产分析.html">破碎生产分析</a></dd>
+                            <dd><a href="选矿生产分析.html">选矿生产分析</a></dd>
+                            <dd><a href="精尾生产分析.html">精尾生产分析</a></dd>
+                          </dl>
+                    </li>
+                  </ul>
+            </div>
+        </div>
+        <!-- 内容主体区域 -->
+        <div class="layui-body">
+            <div id="toppart" style="padding-top:20px;text-align: center;">
+                <div class="layui-input-inline" style="float: left;height: 50%; margin-left: 20px;margin-top: 10px;">
+                    <input type="text" class="layui-input" id="test1" placeholder="2021-6-18">
+                </div>
+                <p style="height: 38px;width:240px; margin: 0 auto;font-size: 30px;color: cornsilk;">选矿生产分析</p>
+            </div>
+            <div class="main-body" style="background-color: #000E46;">
+                <div class="layui-card">
+                    <div class="layui-card-header" style="text-align: center">
+                        <p>计划执行分析</p>
+                    </div>
+                    <div class="layui-card-body">
+                        <ul class="layui-row layui-col-space10 layui-this">
+                            
+                            <li class="layui-col-md4">
+                                <div class="layui-card">
+                                    <div class="layui-card-body">
+                                        <ul class="layui-row layui-col-space10 layui-this">
+                                            <li class="layui-col-md12">
+                                                <div class="layui-row layui-col-space10 layui-this">
+                                                    <div class="layui-col-md12">
+                                                        <p style="font-size: large;">时间进度</p>
+                                                        <div id="chartt1" style="width:100%;height:300px;"></div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="layui-col-md4" style="text-align: center;">
+                                <div class="layui-row">
+                                    <div class="layui-col-md12" style="text-align: center;">
+                                        <div class="layui-row">
+                                            <div class="layui-col-md6">
+                                                <br><br>
+                                                <p style="font-size: large;height: 50%;">本月计划</p><br>
+                                                <p style="font-size: large; height: 50%;">150000吨</p>
+                                            </div>
+                                            <div class="layui-col-md6"><br>
+                                                <div class="chart" id="chartt4" style="width: 200px;height: 150px;"></div>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                    <div class="layui-col-md12" style="text-align: center;">
+                                        <div class="layui-row">
+                                            <div class="layui-col-md6">
+                                                <br><br>
+                                                <p style="font-size: large;">本月计划</p><br>
+                                                <p style="font-size: large;">150000吨</p>
+                                            </div>
+                                            <div class="layui-col-md6"><br>
+                                                <div class="chart" id="chartt5" style="width: 200px;height: 150px;"></div>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </div>
+                               
+                            </li>
+                            <li class="layui-col-md4" style="text-align: center;"><br><br>
+                                <div style="text-align: center;font-size: large;">
+                                    <p style="font-size: large;font-size: large;">分析 :本月31个工作日,目前28工作日90.00%.</p><br>
+                                    <p style="margin-left: 35px;font-size: large;">本月计划完成150000吨,日均4838.71吨</p><br>
+                                    <p style="margin-left: 35px;font-size: large;">日累计完成140000吨,速度超4516.12吨</p><br>
+                                    <p style="margin-left: 15px;font-size: large;">日均完成5000吨,预计完成155000吨</p><br>
+                                    <p style="font-size: large;">决策 :目前剩余3个工作日,日最少完成10000吨</p>
+                                </div>
+                            </li>
+                           
+                        </ul>
+                    </div>
+                </div>
+                <div class="layui-card">
+                    <div class="layui-card-header" style="text-align: center;">
+                        <p>选矿处理量分析</p>
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="layui-row">
+                            <div class="layui-col-12">
+                                <div id="chartt2" style=" height:400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-card">
+                    <div class="layui-card-header" style="text-align:center;">
+                        <p>月度数据排名</p>
+                    </div>
+                    <div class="laui-card-body">
+                        <div class="layui-row">
+                            <div class="layui-col-md3">
+                                <div class="layui-card">
+                                    <div class="layui-card-header" style="text-align: center;">
+                                        <p style="border: seashell solid;border-width: 0 1px;">处理量排名</p>
+                                    </div>
+                                    <div class="layui-card-body">
+                                        <div class="layui-row">
+                                            <div class="layui-col-md6" style="text-align: center;">
+                                                <p style="border: solid  seashell;border-width: 1px 0 0 1px;">班次</p>
+                                                <p style="border: solid  seashell;border-width: 1px 0 0 1px;">甲</p>
+                                                <p style="border: solid  seashell;border-width: 1px 0 0 1px;">乙</p>
+                                                <p style="border: solid  seashell;border-width: 1px 0 0 1px;">丙</p>
+                                                <p style="border: solid  seashell;border-width: 1px 0 1px 1px;">丁</p>
+                                            </div>
+                                            <div class="layui-col-md6" style="text-align: center;">
+                                                <p style="border: solid  seashell;border-width: 1px 1px 0 1px;">累计处理量(t)
+                                                </p>
+                                                <p style="border: solid  seashell;border-width: 1px 1px 0 1px;">58434
+                                                </p>
+                                                <p style="border: solid  seashell;border-width: 1px 1px 0 1px;">57487
+                                                </p>
+                                                <p style="border: solid  seashell;border-width: 1px 1px 0 1px;">56732
+                                                </p>
+                                                <p style="border: solid  seashell;border-width: 1px 1px 1px 1px;">55801
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md3">
+                                <div class="layui-card">
+                                    <div class="layui-card-header" style="text-align: center;">
+                                        <p style="border: seashell solid;border-width: 0 1px ;">Pb回收率排名</p>
+                                    </div>
+                                    <div class="layui-card-body">
+                                        <div class="layui-row">
+                                            <div class="layui-col-md6" style="text-align: center;">
+                                                <p style="border: solid  seashell;border-width: 1px 0 0 1px;">班次</p>
+                                                <p style="border: solid  seashell;border-width: 1px 0 0 1px;">甲</p>
+                                                <p style="border: solid  seashell;border-width: 1px 0 0 1px;">乙</p>
+                                                <p style="border: solid  seashell;border-width: 1px 0 0 1px;">丙</p>
+                                                <p style="border: solid  seashell;border-width: 1px 0 1px 1px;">丁</p>
+                                            </div>
+                                            <div class="layui-col-md6" style="text-align: center;">
+                                                <p style="border: solid  seashell;border-width: 1px 1px 0 1px;">回收率(%)
+                                                </p>
+                                                <p style="border: solid  seashell;border-width: 1px 1px 0 1px;">93.1</p>
+                                                <p style="border: solid  seashell;border-width: 1px 1px 0 1px;">92.5</p>
+                                                <p style="border: solid  seashell;border-width: 1px 1px 0 1px;">91.7</p>
+                                                <p style="border: solid  seashell;border-width: 1px 1px 1px 1px;">90.5
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md3">
+                                <div class="layui-card">
+                                    <div class="layui-card-header" style="text-align: center;">
+                                        <p style="border: seashell solid;border-width: 0 1px ;">Zn回收率排名</p>
+                                    </div>
+                                    <div class="layui-card-body">
+                                        <div class="layui-row">
+                                            <div class="layui-col-md6" style="text-align: center;">
+                                                <p style="border: solid  seashell;border-width: 1px 0 0 1px;">班次</p>
+                                                <p style="border: solid  seashell;border-width: 1px 0 0 1px;">甲</p>
+                                                <p style="border: solid  seashell;border-width: 1px 0 0 1px;">乙</p>
+                                                <p style="border: solid  seashell;border-width: 1px 0 0 1px;">丙</p>
+                                                <p style="border: solid  seashell;border-width: 1px 0 1px 1px;">丁</p>
+                                            </div>
+                                            <div class="layui-col-md6" style="text-align: center;">
+                                                <p style="border: solid  seashell;border-width: 1px 1px 0 1px;">回收率(%)
+                                                </p>
+                                                <p style="border: solid  seashell;border-width: 1px 1px 0 1px;">95.6</p>
+                                                <p style="border: solid  seashell;border-width: 1px 1px 0 1px;">94.5</p>
+                                                <p style="border: solid  seashell;border-width: 1px 1px 0 1px;">92.1</p>
+                                                <p style="border: solid  seashell;border-width: 1px 1px 1px 1px;">90.8
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md3">
+                                <div class="layui-card">
+                                    <div class="layui-card-header" style="text-align: center;">
+                                        <p style="border: seashell solid;border-width: 0 1px;">S回收率排名</p>
+                                    </div>
+                                    <div class="layui-card-body">
+                                        <div class="layui-row">
+                                            <div class="layui-col-md6" style="text-align: center;">
+                                                <p style="border: solid  seashell;border-width: 1px 0 0 1px;">班次</p>
+                                                <p style="border: solid  seashell;border-width: 1px 0 0 1px;">甲</p>
+                                                <p style="border: solid  seashell;border-width: 1px 0 0 1px;">乙</p>
+                                                <p style="border: solid  seashell;border-width: 1px 0 0 1px;">丙</p>
+                                                <p style="border: solid  seashell;border-width: 1px 0 1px 1px;">丁</p>
+                                            </div>
+                                            <div class="layui-col-md6" style="text-align: center;">
+                                                <p style="border: solid  seashell;border-width: 1px 1px 0 1px;">回收率(%)
+                                                </p>
+                                                <p style="border: solid  seashell;border-width: 1px 1px 0 1px;">94.3</p>
+                                                <p style="border: solid  seashell;border-width: 1px 1px 0 1px;">91.8</p>
+                                                <p style="border: solid  seashell;border-width: 1px 1px 0 1px;">90.7</p>
+                                                <p style="border: solid  seashell;border-width: 1px 1px 1px 1px;">88.9
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-card">
+                    <div class="layui-card-header" style="text-align: center;">
+                        <p>同环比分析</p>
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="layui-row">
+                            <div class="layui-col-12">
+                                <div id="chartt3" style="border: seashell solid 1px; height: 400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#test1'
+            });
+        });
+        layui.use(['jquery', 'element', 'layer', 'form', 'table'], function () {
+            var form = layui.form;
+            initChart();  //加载页面echart图表
+            function initChart() {
+                var option1 = {
+                    tooltip: {
+                        trigger: 'item'
+                    },
+
+                    series: [
+                        {
+                            name: '破碎率',
+                            type: 'pie',
+                            radius: ['70%', '40%'],
+                            avoidLabelOverlap: false,
+                            label: {
+                                name: 'www',
+                                show: true,
+                                position: 'center',
+                                fontSize: 30
+
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    fontSize: '60',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                            labelLine: {
+                                show: false
+                            },
+                            data: [
+                                { value: 10, name: '10%' },
+                                { value: 90, name: '90%' },
+                            ]
+                        }
+                    ]
+                };
+                var chart1 = echarts.init(document.getElementById('chartt1'));
+                chart1.setOption(option1);
+
+                var option4 = {
+                    series: [{
+                      type: 'gauge',
+                      startAngle: 180,
+                      endAngle: 0,
+                      min: 0,
+                      max: 100,
+                      splitNumber: 5,
+                     itemStyle: {
+                       color: '#58D9F9',
+                         shadowColor: 'rgba(0,138,255,0.45)',
+                         shadowBlur: 10,
+                         shadowOffsetX: 0,
+                          shadowOffsetY: 0
+        },
+                   progress: {
+                   show: true,
+                   roundCap: true,
+                   width: 5
+        },
+                 pointer: {
+            icon: 'path://M2090.36389,615.30999 L2090.36389,615.30999 C2091.48372,615.30999 2092.40383,616.194028 2092.44859,617.312956 L2096.90698,728.755929 C2097.05155,732.369577 2094.2393,735.416212 2090.62566,735.56078 C2090.53845,735.564269 2090.45117,735.566014 2090.36389,735.566014 L2090.36389,735.566014 C2086.74736,735.566014 2083.81557,732.63423 2083.81557,729.017692 C2083.81557,728.930412 2083.81732,728.84314 2083.82081,728.755929 L2088.2792,617.312956 C2088.32396,616.194028 2089.24407,615.30999 2090.36389,615.30999 Z',
+            length: '80%',
+            width: 8,
+            offsetCenter: [0, '5%']
+        },
+                 axisLine: {
+                  roundCap: true,
+                  lineStyle: {
+                width: 2
+            }
+        },
+        axisLabel: {
+                  
+            fontSize :20
+        },
+                 axisTick: {
+                    splitNumber: 1,
+                     lineStyle: {
+                     width: 1,
+                    color: '#999'
+            }
+        },
+                splitLine: {
+                  length: 5,
+                 lineStyle: {
+                width: 1,
+                color: '#999'
+            }
+        },
+                axisLabel: {
+            distance: 1,
+            color: '#999',
+            fontSize: 5
+        },
+        title: {
+            show: false
+        },
+        detail: {
+            backgroundColor: '#fff',
+            borderColor: '#999',
+            borderWidth: 1,
+            width: '60%',
+            lineHeight: 18,
+            height: 15,
+            borderRadius: 8,
+            offsetCenter: [0, '50%'],
+            valueAnimation: true,
+            formatter: function (value) {
+                return '{value|' + value.toFixed(0) + '}{unit|%}';
+            },
+            rich: {
+                value: {
+                    fontSize: 15,
+                    fontWeight: 'bolder',
+                    color: '#777'
+                },
+                unit: {
+                    fontSize: 15,
+                    color: '#999',
+                    padding: [0, 0, -0, 10]
+                }
+            }
+        },
+        data: [{
+            value: 91
+        }]
+    }]
+                };
+                var chart4 = echarts.init(document.getElementById('chartt4'));
+                chart4.setOption(option4);
+                var chart5 = echarts.init(document.getElementById('chartt5'));
+                chart5.setOption(option4);
+        
+                var chart2 = echarts.init(document.getElementById('chartt2'));
+                var xAxisData = [];
+                var data1 = [];
+                var data2 = [];
+                var data3 = [];
+                var data4 = [];
+                for (var i = 1; i < 31; i++) {
+                    xAxisData.push(i + '日');
+                    data1.push((Math.random() * 1000 + 5000).toFixed(2));
+                    data2.push((Math.random() * 1234 + 5000).toFixed(2));
+                    data3.push((Math.random() * 692 + 5000).toFixed(2));
+                    data4.push((Math.random() * 882 + 5000).toFixed(2));
+                }
+                var emphasisStyle = {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowColor: 'rgba(0,0,0,0.3)'
+                    }
+                };
+                var option2 = {
+                    legend: {
+                
+                        data: ['夜班', '白班',],
+                        left: '50%',
+                    },
+                    brush: {
+                        toolbox: ['rect', 'polygon', 'lineX', 'lineY', 'keep', 'clear'],
+                        xAxisIndex: 0
+                    },
+                    toolbox: {
+                        feature: {
+                            magicType: {
+                                type: ['stack', 'tiled']
+                            },
+                            dataView: {}
+                        }
+                    },
+                    tooltip: {},
+                    xAxis: {
+                        data: xAxisData,
+                        name: '日期',
+                        axisLine: { onZero: true },
+                        splitLine: { show: false },
+                        splitArea: { show: false }
+                    },
+                    yAxis: {
+                        name: '吨',
+                        // data:[1,2],
+                    },
+                    grid: {
+                        bottom: 100
+                    },
+                    series: [
+                        {
+                            name: '夜班',
+                            type: 'bar',
+                            stack: 'one',
+                            emphasis: emphasisStyle,
+                            data: data1
+                        },
+                        {
+                            name: '白班',
+                            type: 'bar',
+                            stack: 'one',
+                            emphasis: emphasisStyle,
+                            data: data2
+                        },
+
+                    ]
+                };
+                chart2.on('brushSelected', renderBrushed);
+                function renderBrushed(params) {
+                    var brushed = [];
+                    var brushComponent = params.batch[0];
+
+                    for (var sIdx = 0; sIdx < brushComponent.selected.length; sIdx++) {
+                        var rawIndices = brushComponent.selected[sIdx].dataIndex;
+                        brushed.push('[Series ' + sIdx + '] ' + rawIndices.join(', '));
+                    }
+
+                    chart2.setOption({
+                        title: {
+                            backgroundColor: '#333',
+                            text: 'SELECTED DATA INDICES: \n' + brushed.join('\n'),
+                            bottom: 0,
+                            right: '10%',
+                            width: 100,
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#fff'
+                            }
+                        }
+                    });
+                }
+                chart2.setOption(option2);
+
+                // var app = {};
+
+                var option3 = {
+                    legend: {},
+                    tooltip: {},
+                    dataset: {
+                        source: [
+                            ['product', '上年', '本年',],
+                            ['1月', 4332, 4858,],
+                            ['2月', 4831, 4734,],
+                            ['3月', 4864, 4652,],
+                            ['4月', 4714, 4539,],
+                            ['5月', 4778, 4639,],
+                            ['6月', 4704, 4589,],
+                            ['7月', 4332, 4858,],
+                            ['8月', 4831, 4734,],
+                            ['9月', 4864, 4652,],
+                            ['10月', 4714, 4539,],
+                            ['11月', 4778, 4639,],
+                            ['12月', 4704, 4589,],
+                        ]
+                    },
+                    xAxis: { type: 'category' },
+                    yAxis: {},
+                    // Declare several bar series, each will be mapped
+                    // to a column of dataset.source by default.
+                    series: [
+                        { type: 'bar' },
+                        { type: 'bar' },
+
+                    ]
+                };
+                var chart3 = echarts.init(document.getElementById('chartt3'));
+                chart3.setOption(option3);     
+            }            
+            });
+
+    </script>
+
+    </div>
+
+    </div>
+    </div>
+
+</body>
+
+</html>

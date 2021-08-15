@@ -1,0 +1,536 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+li {
+  list-style: none;
+}
+/* 声明字体*/
+@font-face {
+  font-family: electronicFont;
+  src: url(../font/DS-DIGIT.TTF);
+}
+body {
+  background: url(../images/bg.jpg) repeat top center;
+  line-height: 1.15;
+  
+}
+header {
+  position: relative;
+  height: 1rem;
+  background: url(../images/head_bg.png) no-repeat;
+  background-size: 100% 100%;
+}
+header img {
+  width: 2.5rem;
+  height: 0.75rem;
+  /* margin-top: 0.1rem; */
+  /* margin-left: 7rem; */
+}
+header h3 {
+  position: absolute;
+  top: 0;
+  left: 10rem;
+  font-size: 0.75rem;
+  font-family: 楷体;
+  color: #f1eb94;
+  line-height: 0.85rem;
+}
+header .showTime {
+  position: absolute;
+  left: 2.5rem;
+  top: 0;
+  line-height: 0.9375rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.25rem;
+  /* margin-left: 200px ; */
+}
+.button {
+  background: rgba(101, 132, 226, 0.1);
+  padding: 0.1875rem;
+}
+.button .site-demo-button {
+  margin-left: 4rem;
+}
+.rowProA {
+  display: flex;
+  padding: 0.125rem 0.125rem 0;
+}
+.rowProA .rowPro {
+  flex: 1;
+}
+.rowProA .panel {
+  position: relative;
+  height: 3.875rem;
+  padding: 0 0.1875rem 0.5rem;
+  border: 1px solid rgba(25, 186, 139, 0.17);
+  margin-bottom: 0.1875rem;
+  background: url(../images/line\(1\).png) rgba(255, 255, 255, 0.03);
+}
+.rowProA .panel::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid #02a6b5;
+  border-top: 2px solid #02a6b5;
+  content: "";
+}
+.rowProA .panel::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #02a6b5;
+  border-top: 2px solid #02a6b5;
+  content: "";
+}
+.rowProA .panel .panel-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.rowProA .panel .panel-footer::before {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid #02a6b5;
+  border-bottom: 2px solid #02a6b5;
+  content: "";
+}
+.rowProA .panel .panel-footer::after {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #02a6b5;
+  border-bottom: 2px solid #02a6b5;
+  content: "";
+}
+.rowProA .panel h2 {
+  position: absolute;
+  top: 150px;
+  right: 160px;
+  height: 0.6rem;
+  color: #fff;
+  line-height: 0.6rem;
+  font-size: 0.5rem;
+  font-weight: 400;
+}
+.rowProA .panel h2 a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 0.125rem;
+}
+.rowProA .panel .chart {
+  height: 3rem;
+}
+.mainbox {
+  display: flex;
+  min-width: 1024px;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0.125rem 0.125rem 0;
+}
+.mainbox .column {
+  flex: 3;
+}
+.mainbox .column .allXilie {
+  display: flex;
+}
+.mainbox .column .allXilie .columnXilie {
+  flex: 1;
+}
+.mainbox .columnPro {
+  flex: 1;
+}
+.mainbox .column:nth-child(2) {
+  flex: 8;
+  margin: 0 0.125rem 0.1875rem;
+}
+.mainbox .panelA {
+  position: relative;
+  height: 3.875rem;
+  padding: 0 0.1875rem 0.5rem;
+  border: 1px solid rgba(25, 186, 139, 0.17);
+  margin-bottom: 0.1875rem;
+  background: url(../images/line\(1\).png) rgba(255, 255, 255, 0.03);
+}
+.mainbox .panelA::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid #02a6b5;
+  border-top: 2px solid #02a6b5;
+  content: "";
+}
+.mainbox .panelA::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #02a6b5;
+  border-top: 2px solid #02a6b5;
+  content: "";
+}
+.mainbox .panelA .panel-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.mainbox .panelA .panel-footer::before {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid #02a6b5;
+  border-bottom: 2px solid #02a6b5;
+  content: "";
+}
+.mainbox .panelA .panel-footer::after {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #02a6b5;
+  border-bottom: 2px solid #02a6b5;
+  content: "";
+}
+.mainbox .panelA .chart {
+  height: 4rem;
+}
+.mainbox .panel {
+  position: relative;
+  height: 3.875rem;
+  padding: 0 0.1875rem 0.5rem;
+  border: 1px solid rgba(25, 186, 139, 0.17);
+  margin-bottom: 0.1875rem;
+  background: url(../images/line\(1\).png) rgba(255, 255, 255, 0.03);
+}
+.mainbox .panel::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid #02a6b5;
+  border-top: 2px solid #02a6b5;
+  content: "";
+}
+.mainbox .panel::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #02a6b5;
+  border-top: 2px solid #02a6b5;
+  content: "";
+}
+.mainbox .panel .panel-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.mainbox .panel .panel-footer::before {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid #02a6b5;
+  border-bottom: 2px solid #02a6b5;
+  content: "";
+}
+.mainbox .panel .panel-footer::after {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #02a6b5;
+  border-bottom: 2px solid #02a6b5;
+  content: "";
+}
+.mainbox .panel h2 {
+  height: 0.6rem;
+  color: #fff;
+  line-height: 0.6rem;
+  text-align: center;
+  font-size: 0.25rem;
+  font-weight: 400;
+}
+.mainbox .panel .chart {
+  height: 3.25rem;
+}
+.row1 {
+  display: flex;
+  height: 3.95rem;
+}
+.row1 .line2 {
+  flex: 1;
+}
+.row1 .bar {
+  flex: 1;
+}
+.look {
+  position: relative;
+  height: 5.5rem;
+  padding: 0.15rem 0.1875rem 0.5rem;
+  border: 1px solid rgba(25, 186, 139, 0.17);
+  background: url(../images/line\(1\).png) rgba(255, 255, 255, 0.03);
+}
+.look::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid #02a6b5;
+  border-top: 2px solid #02a6b5;
+  content: "";
+}
+.look::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #02a6b5;
+  border-top: 2px solid #02a6b5;
+  content: "";
+}
+.look .panel-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.look .panel-footer::before {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid #02a6b5;
+  border-bottom: 2px solid #02a6b5;
+  content: "";
+}
+.look .panel-footer::after {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #02a6b5;
+  border-bottom: 2px solid #02a6b5;
+  content: "";
+}
+.look img {
+  height: 4rem;
+  width: 7rem;
+}
+.map {
+  position: relative;
+  height: 5.05rem;
+  padding: 0.05rem 0.1875rem;
+  border: 1px solid rgba(25, 186, 139, 0.17);
+  background: url(../images/line\(1\).png) rgba(255, 255, 255, 0.03);
+}
+.map::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid #02a6b5;
+  border-top: 2px solid #02a6b5;
+  content: "";
+}
+.map::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #02a6b5;
+  border-top: 2px solid #02a6b5;
+  content: "";
+}
+.map .panel-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.map .panel-footer::before {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid #02a6b5;
+  border-bottom: 2px solid #02a6b5;
+  content: "";
+}
+.map .panel-footer::after {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #02a6b5;
+  border-bottom: 2px solid #02a6b5;
+  content: "";
+}
+.map img {
+  height: 4.5rem;
+  width: 15.5rem;
+}
+.rest {
+  background: url(../images/bg.jpg) no-repeat top center;
+  line-height: 1.15;
+  padding: 0.125rem 0.125rem 0;
+}
+.lastrow {
+  position: relative;
+  height: 5rem;
+  background: url(../images/line\(1\).png) rgba(255, 255, 255, 0.03);
+}
+.lastrow::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid #02a6b5;
+  border-top: 2px solid #02a6b5;
+  content: "";
+}
+.lastrow::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #02a6b5;
+  border-top: 2px solid #02a6b5;
+  content: "";
+}
+.lastrow .panel-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.lastrow .panel-footer::before {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid #02a6b5;
+  border-bottom: 2px solid #02a6b5;
+  content: "";
+}
+.lastrow .panel-footer::after {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #02a6b5;
+  border-bottom: 2px solid #02a6b5;
+  content: "";
+}
+.lastrow .chartA {
+  width: 100%;
+  height: 4.85rem;
+  margin-bottom: 0;
+}
+.allLook {
+  padding: 0.5rem 0.85rem;
+  position: relative;
+  background: url(../images/line\(1\).png) rgba(255, 255, 255, 0.03);
+}
+.allLook::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid #02a6b5;
+  border-top: 2px solid #02a6b5;
+  content: "";
+}
+.allLook::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #02a6b5;
+  border-top: 2px solid #02a6b5;
+  content: "";
+}
+.allLook .panel-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.allLook .panel-footer::before {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid #02a6b5;
+  border-bottom: 2px solid #02a6b5;
+  content: "";
+}
+.allLook .panel-footer::after {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #02a6b5;
+  border-bottom: 2px solid #02a6b5;
+  content: "";
+}
+.allLook img {
+  height: 7.5rem;
+  width: 100%;
+}
+/* 约束屏幕尺寸 */
+@media screen and (max-width: 1024px) {
+  html {
+    font-size: 42px !important;
+  }
+}
+@media screen and (min-width: 1920px) {
+  html {
+    font-size: 80px !important;
+  }
+  @media screen and (max-width:2880px) {
+    html{
+      font-size: 120px;
+    }
+    
+  }
+}

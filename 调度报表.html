@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>调度交班记录</title>
+    <link rel="stylesheet" href="./layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./echarts/dist/echarts.js"></script>
+    <script src="./Highcharts/code/highcharts.js"></script>
+    <script src="./layui/layui.js"></script>
+    <script src="/web/js/flexible.js"></script>
+    <!-- <script src="/web/js/index1.js"></script> -->
+    <style>
+        .layui-body{
+          background-color: white;
+        }
+        .toppart{
+            padding-top:10px
+        }
+        p {
+            color: black;
+            font-size: larger;
+        }
+        .body-title{
+         height: 38px;
+         width:240px; 
+         margin: 10px auto;
+         font-size: 30px;
+         color: black;
+        }
+        table{
+            background-color: white;
+        }
+        .table1{
+            border:1px solid black;
+            width: 60%;
+            margin:0 auto;
+        }
+        td{
+            width: 200px;
+            height: 30px;
+            color: black;
+            text-align: center;
+            border:1px solid black;
+
+        }
+        .buts{
+            /* background-color: turquoise; */
+            width: 60%;
+            margin: 0 auto;
+        }
+        
+          
+    </style>
+</head>
+
+<body>
+    <!-- 主体 -->
+    <div class="layui-layout layui-layout-admin">
+        <!--头部区域  -->
+        <div class="layui-header" >
+            <header>
+              <div class="title">
+                <img src="./images/logo(已去底) (1).jpg" alt="" class="logo">
+                <h3>大宝山矿业智能工厂</h3>      
+              </div>
+                <div class="showTime"></div>
+                <script>
+                    var t = null;
+                    t = setTimeout(time, 1000); //開始运行
+                    function time() {
+                        clearTimeout(t); //清除定时器
+                        dt = new Date();
+                        var y = dt.getFullYear();
+                        var mt = dt.getMonth() + 1;
+                        var day = dt.getDate();
+                        var h = dt.getHours(); //获取时
+                        var m = dt.getMinutes(); //获取分
+                        var s = dt.getSeconds(); //获取秒
+                        document.querySelector(".showTime").innerHTML =
+                            "当前时间：" +
+                            y +
+                            "年" +
+                            mt +
+                            "月" +
+                            day +
+                            "日" +
+                            h +
+                            "时" +
+                            m +
+                            "分" +
+                            s +
+                            "秒";
+                        t = setTimeout(time, 1000); //设定定时器，循环运行
+                    }
+                </script>
+            </header>
+            <ul class="layui-nav layui-layout-right">
+                <li></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
+                            class="layui-nav-img"> 管理员
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">修改资料</a></dd>
+                        <dd><a href="">系统管理</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="login.html">登出</a></li>
+            </ul>
+        </div>
+        <!-- 左边导航栏 -->
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域-->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                  <!-- 过程监控 -->
+                  <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">过程监控</a>
+                    <dl class="layui-nav-child">
+                      <dd><a href="综合集成监控.html">综合集成监控</a></dd>
+                      <dd><a href="javascript:;">工艺流程监控</a>
+                        <dl class="layui-nav-child">
+                          <dd><a href="破碎.html">破碎</a></dd>
+                          <dd><a href="球磨.html">球磨</a></dd>
+                          <dd><a href="选别.html">选别</a></dd>
+                          <dd><a href="浓缩.html">浓缩</a></dd>
+                          <dd><a href="过滤.html">过滤</a></dd>
+                          <dd><a href="尾矿浓缩.html">尾矿浓缩</a></dd>
+                        </dl>
+                      </dd>
+                      <dd><a href="javascript:;">设备状态监控</a>
+                        <dl class="layui-nav-child">
+                          <dd><a href="半自磨机.html">半自磨机</a></dd>
+                          <dd><a href="球磨机.html">球磨机</a></dd>
+                          <dd><a href="鄂式破碎机.html">鄂式破碎机</a></dd>
+                          <dd><a href="板式给料机.html">板式给料机</a></dd>
+                          <dd><a href="皮带运输机.html">皮带运输机</a></dd>
+                          <dd><a href="铅浮选.html">铅浮选</a></dd>
+                          <dd><a href="锌硫分选.html">锌硫分选</a></dd>
+                          <dd><a href="1#鼓风机.html">1#鼓风机</a></dd>
+                          <dd><a href="2#鼓风机.html">2#鼓风机</a></dd>
+                        </dl>
+                      </dd>
+                      <dd><a href="监控报警.html">监控报警</a></dd>
+                    </dl>
+                  </li>
+                  <!-- 生产调度 -->
+                  <li class="layui-nav-item">
+                    <a href="javascript:;">生产调度</a>
+                    <dl class="layui-nav-child">
+                      <dd><a href="javascript:">生产看板</a>
+                        <dl class="layui-nav-child">
+                          <dd><a href="生产周报调度.html">生产周报调度</a></dd>
+                          <dd><a href="生产日报调度.html">生产日报调度</a></dd>
+                          <dd><a href="生产调度台账.html">生产调度台账</a></dd>
+                        </dl>
+                      </dd>
+                      <dd><a href="调度报表.html">调度报表</a></dd>
+                      <dd><a href="交接班信息.html">交接班信息</a></dd>
+                      <dd><a href="设备维修记录.html">调度记录</a></dd>
+                      <dd><a href="设备维修调度.html">设备维修调度</a></dd>
+                    </dl>
+                  </li>
+                  <!-- 生产统计 -->
+                  <li class="layui-nav-item">
+                    <a href="javascript:;">生产统计</a>
+                    <dl class="layui-nav-child">
+                      <dd><a href="生产日报.html">生产日报</a></dd>
+                      <dd><a href="生产周报.html">生产周报</a></dd>
+                      <dd><a href="生产月报.html">生产月报</a></dd>
+                    </dl>
+                  </li>
+                  <!-- 设备运行 -->
+                  <li class="layui-nav-item">
+                    <a href="javascript:;">设备运行</a>
+                    <dl class="layui-nav-child">
+                      <dd><a href="javascript:;">设备台账</a>
+                        <dl class="layui-nav-child">
+                          <dd><a href="原料输送站.html">原料输送站</a></dd>
+                          <dd><a href="javascript:;">破碎车间</a>
+                            <dl class="layui-nav-child">
+                              <dd><a href="筛分站.html">筛分站</a></dd>
+                              <dd><a href="干选站.html">干选站</a></dd>
+                            </dl>
+                          </dd>
+                          <dd><a href="磨选车间.html">磨选车间</a></dd>
+                          <dd><a href="过滤车间.html">过滤车间</a></dd>
+                          <dd><a href="精矿库.html">精矿库</a></dd>
+                          <dd><a href="尾矿库.html">尾矿库</a></dd>
+                        </dl>
+                      </dd>
+                      <dd><a href="javascript:">设备停机分析</a>
+                        <dl class="layui-nav-child">
+                          <dd><a href="粗碎工艺.html">粗碎工艺</a></dd>
+                          <dd><a href="选矿工艺.html">选矿工艺</a></dd>
+                        </dl>
+                      </dd>
+                      <dd><a href="javascript:;">设备运时统计</a>
+                        <dl class="layui-nav-child">
+                          <dd><a href="设备运时日统计.html">设备运时日统计</a></dd>
+                          <dd><a href="设备运时月统计.html">设备运时月统计</a></dd>
+                          <dd><a href="设备运时年统计.html">设备运时年统计</a></dd>
+                        </dl>
+                      </dd>
+                      <dd><a href="javascript:;">设备停机统计</a>
+                        <dl class="layui-nav-child">
+                          <dd><a href="设备停机日统计.html">设备停机日统计</a></dd>
+                          <dd><a href="设备停机月统计.html">设备停机月统计</a></dd>
+                          <dd><a href="设备停机年统计.html">设备停机年统计</a></dd>
+                        </dl>
+                      </dd>
+                      <dd><a href="javascript:;">设备运行维护</a>
+                        <dl class="layui-nav-child">
+        
+                      <dd><a href="设备维修记录.html">设备维修记录</a></dd>
+                      </dl>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li class="layui-nav-item">
+                    <a href="javascript:;">质量管理</a>
+                    <dl class="layui-nav-child">
+                      <dd><a href="生产质量数据统计.html">生产质量数据统计</a></dd>
+                      <dd><a href="产品品位分析.html">产品品位分析</a></dd>
+                      <dd><a href="化验报告生成.html">化验报告生成</a></dd>
+                      <dd><a href="化验数据管理.html">化验数据管理</a></dd>
+                    </dl>
+                  </li>
+                  <li class="layui-nav-item">
+                    <a href="javascript:;">能源管理</a>
+                    <dl class="layui-nav-child">
+                      <dd><a href="能源分配.html">能源分配</a></dd>
+                      <dd><a href="能源监控.html">能源监控</a></dd>
+                      <dd><a href="能源统计.html">能源统计</a></dd>
+                      <dd><a href="设备能耗分析.html">设备能耗分析</a></dd>
+                    </dl>
+                  </li>
+                  <li class="layui-nav-item">
+                    <a href="javascript:;">辅助决策</a>
+                    <dl class="layui-nav-child">
+                      <dd><a href="javascript:;">选厂生产分析</a>
+                        <dl class="layui-nav-child">
+                          <dd><a href="破碎生产分析.html">破碎生产分析</a></dd>
+                          <dd><a href="选矿生产分析.html">选矿生产分析</a></dd>
+                          <dd><a href="精尾生产分析.html">精尾生产分析</a></dd>
+                        </dl>
+                  </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 内容主体区域 -->
+        <div class="layui-body">
+            <div class="toppart">
+                <div class="layui-input-inline" style="float: left;height: 50%; margin-left: 20px;border: black 1px solid;">
+                <input type="text" class="layui-input" id="test1" placeholder="2021-6-18 ">
+                </div>
+                <!-- <p class="year">年时间进度</p> -->
+                
+                <p class="body-title">调度交班记录</p>
+            </div>
+         
+            <div class="main-body">
+             <div class="buts">
+                <button>增加</button>
+                <button>编辑</button>
+                <button>查看</button>
+                <button>查询</button>
+                <button>删除</button>
+                <button>返回</button>
+             </div>
+                
+                <table class="table1">
+                     <tr><td>编号</td><td></td><td>生产日期</td><td></td><td></td><td>生产班组</td><td></td></tr>
+                     <tr><td>2104090201</td><td></td><td>2021/4/9</td><td></td><td></td><td>乙班</td><td></td></tr>
+                     <tr><td>2104090301</td><td></td><td>2021/4/9</td><td></td><td></td><td>丙班</td><td></td></tr>
+                     <tr><td>2104090401</td><td></td><td>2021/4/9</td><td></td><td></td><td>丁班</td><td></td></tr>
+                     <tr><td>2104100201</td><td></td><td>2021/4/10</td><td></td><td></td><td>乙班</td><td></td></tr>
+                     <tr><td>2104100301</td><td></td><td>2021/4/10</td><td></td><td></td><td>丙班</td><td></td></tr>
+                     <tr><td>2104100401</td><td></td><td>2021/4/10</td><td></td><td></td><td>丁班</td><td></td></tr>
+                     <tr><td>2104110201</td><td></td><td>2021/4/11</td><td></td><td></td><td>乙班</td><td></td></tr>
+                     <tr><td>2104110301</td><td></td><td>2021/4/11</td><td></td><td></td><td>丙班</td><td></td></tr>
+                     <tr><td>2104110401</td><td></td><td>2021/4/11</td><td></td><td></td><td>丁班</td><td></td></tr>
+                     <tr><td>2104120201</td><td></td><td>2021/4/12</td><td></td><td></td><td>乙班</td><td></td></tr>
+                     <tr><td>2104120301</td><td></td><td>2021/4/12</td><td></td><td></td><td>丙班</td><td></td></tr>
+                     <tr><td>2104120401</td><td></td><td>2021/4/12</td><td></td><td></td><td>丁班</td><td></td></tr>
+                     <tr><td>2104130201</td><td></td><td>2021/4/13</td><td></td><td></td><td>乙班</td><td></td></tr>
+                     <tr><td>2104130301</td><td></td><td>2021/4/13</td><td></td><td></td><td>丙班</td><td></td></tr>
+                     <tr><td>2104130401</td><td></td><td>2021/4/13</td><td></td><td></td><td>丁班</td><td></td></tr>
+                     <tr><td>2104140201</td><td></td><td>2021/4/14</td><td></td><td></td><td>乙班</td><td></td></tr>
+                     <tr><td>2104140301</td><td></td><td>2021/4/14</td><td></td><td></td><td>丙班</td><td></td></tr>
+                     <tr><td>2104140401</td><td></td><td>2021/4/14</td><td></td><td></td><td>丁班</td><td></td></tr>
+                     <tr><td>2104150201</td><td></td><td>2021/4/15</td><td></td><td></td><td>乙班</td><td></td></tr>
+                     <tr><td>2104150301</td><td></td><td>2021/4/15</td><td></td><td></td><td>丙班</td><td></td></tr>
+                     <tr><td>2104150401</td><td></td><td>2021/4/15</td><td></td><td></td><td>丁班</td><td></td></tr>
+                     
+                     
+                    
+                    
+                    
+                    </table>
+            </div>
+           
+            
+            <script>
+                layui.use('laydate', function () {
+                  var laydate = layui.laydate;
+                  laydate.render({
+                    elem: '#test1'
+                  });
+                });
+              </script>
+            <!-- <script type="text/javascript">
+                layui.use('table', function () {
+                    var table = layui.table;
+
+                    table.render({
+                        elem: '#test'
+                        , url: '/test/table/demo3.json'
+                        , toolbar: true
+                        , title: '用户数据表'
+                        , totalRow: true
+                        , cols: [[
+                            { field: 'id', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true, totalRowText: '合计行' }
+                            , { field: 'username', title: '用户名', width: 120, edit: 'text' }
+                            , { field: 'email', title: '邮箱', width: 150, edit: 'text' }
+                            , { field: 'experience', title: '积分', width: 100, sort: true, totalRow: true }
+                            , { field: 'sex', title: '性别', width: 80, edit: 'text', sort: true }
+                            , { field: 'logins', title: '登入次数', width: 100, sort: true, totalRow: true }
+                            , { field: 'sign', title: '签名' }
+                            , { field: 'city', title: '城市', width: 100 }
+                            , { field: 'ip', title: 'IP', width: 120 }
+                            , { field: 'joinTime', title: '加入时间', width: 120 }
+                        ]]
+                        , page: true
+                        , response: {
+                            statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
+                        }
+                        , parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
+                            return {
+                                "code": res.status, //解析接口状态
+                                "msg": res.message, //解析提示文本
+                                "count": res.total, //解析数据长度
+                                "data": res.rows.item //解析数据列表
+                            };
+                        }
+                    });
+                });
+                layui.use(['jquery', 'element', 'layer', 'form', 'table'], function () {
+                    var form = layui.form;
+                    initChart();  //加载页面echart图表
+                    function initChart() {
+                        var option3 = {
+                            tooltip: {
+                                trigger: 'item'
+                            },
+
+                            series: [
+                                {
+                                    name: '破碎率',
+                                    type: 'pie',
+                                    radius: ['40%', '60%'],
+                                    avoidLabelOverlap: false,
+                                    label: {
+                                        name: 'www',
+                                        show: true,
+                                        position: 'center'
+
+                                    },
+                                    emphasis: {
+                                        label: {
+                                            show: true,
+                                            fontSize: '40',
+                                            fontWeight: 'bold'
+                                        }
+                                    },
+                                    labelLine: {
+                                        show: false
+                                    },
+                                    data: [
+                                        { value: 10, name: '10%' },
+                                        { value: 90, name: '90%' },
+                                    ]
+                                }
+                            ]
+                        };
+                        var chart3 = echarts.init(document.getElementById('chartt3'));
+                        chart3.setOption(option3);
+                        var option6 = {
+                            tooltip: {
+                                trigger: 'item'
+                            },
+
+                            series: [
+                                {
+                                    name: '处理率',
+                                    type: 'pie',
+                                    radius: ['40%', '60%'],
+                                    avoidLabelOverlap: false,
+                                    label: {
+                                        name: 'www',
+                                        show: true,
+                                        position: 'center'
+
+                                    },
+                                    emphasis: {
+                                        label: {
+                                            show: true,
+                                            fontSize: '40',
+                                            fontWeight: 'bold'
+                                        }
+                                    },
+                                    labelLine: {
+                                        show: false
+                                    },
+                                    data: [
+                                        { value: 7, name: '7%' },
+                                        { value: 93, name: '93%' },
+                                    ]
+                                }
+                            ]
+                        };
+                        var chart6 = echarts.init(document.getElementById('chartt6'));
+                        chart6.setOption(option6);
+                    }
+                });
+
+            </script> -->
+
+        </div>
+
+    </div>
+    </div>
+
+</body>
+
+</html>

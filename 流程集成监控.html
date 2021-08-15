@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>主页</title>
+  <link rel="stylesheet" href="./layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="./css/index.css">
+  <script src="./echarts/dist/echarts.js"></script>
+  <script src="./Highcharts/code/highcharts.js"></script>
+  <script src="./layui/layui.js"></script>
+  <script src="/web/js/flexible.js"></script>
+  <!-- <script src="/web/js/index1.js"></script> -->
+  <style>
+    p {
+      color: seashell;
+      font-size: 0.3rem;
+      text-align: center;
+    }
+    .title{
+      position: relative;
+    }
+
+    img{     
+      width:100%;
+      height:100%;
+      /* border: grey 1px solid; */
+    }
+    .logo{
+      position: absolute;
+      left: 0px;
+      margin-left: 20px;
+      margin-top: 0px;
+      
+    }
+    .showTime{
+      margin-left: 200px ;
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- 主体 -->
+  <div class="layui-layout layui-layout-admin">
+    <!--头部区域  -->
+    <div class="layui-header">
+      <header>
+        <div class="title">
+          <img src="./images/logo(已去底) (1).jpg" alt="" class="logo">
+          <h3>大宝山矿业智能工厂</h3>      
+        </div>
+        <div class="showTime"></div>
+        <script>
+          var t = null;
+          t = setTimeout(time, 1000); //開始运行
+          function time() {
+            clearTimeout(t); //清除定时器
+            dt = new Date();
+            var y = dt.getFullYear();
+            var mt = dt.getMonth() + 1;
+            var day = dt.getDate();
+            var h = dt.getHours(); //获取时
+            var m = dt.getMinutes(); //获取分
+            var s = dt.getSeconds(); //获取秒
+            document.querySelector(".showTime").innerHTML =
+              
+              y +
+              "年" +
+              mt +
+              "月" +
+              day +
+              "日" +
+              h +
+              "时" +
+              m +
+              "分" +
+              s +
+              "秒";
+            t = setTimeout(time, 1000); //设定定时器，循环运行
+          }
+        </script>
+      </header>
+      <ul class="layui-nav layui-layout-right">
+        <li></li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">
+            <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
+              class="layui-nav-img"> 管理员
+          </a>
+          <dl class="layui-nav-child">
+            <dd><a href="">修改资料</a></dd>
+            <dd><a href="">系统管理</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item"><a href="login.html">登出</a></li>
+      </ul>
+    </div>
+    <!-- 左边导航栏 -->
+    <div class="layui-side layui-bg-black">
+      <div class="layui-side-scroll">
+        <!-- 左侧导航区域-->
+        <ul class="layui-nav layui-nav-tree" lay-filter="test">
+          <!-- 过程监控 -->
+          <li class="layui-nav-item layui-nav-itemed">
+            <a class="" href="javascript:;">过程监控</a>
+            <dl class="layui-nav-child">
+              <dd><a href="综合集成监控.html">综合集成监控</a></dd>
+              <dd><a href="javascript:;">工艺流程监控</a>
+                <dl class="layui-nav-child">
+                  <dd><a href="破碎.html">破碎</a></dd>
+                  <dd><a href="球磨.html">球磨</a></dd>
+                  <dd><a href="选别.html">选别</a></dd>
+                  <dd><a href="浓缩.html">浓缩</a></dd>
+                  <dd><a href="过滤.html">过滤</a></dd>
+                  <dd><a href="尾矿浓缩.html">尾矿浓缩</a></dd>
+                </dl>
+              </dd>
+              <dd><a href="javascript:;">设备状态监控</a>
+                <dl class="layui-nav-child">
+                  <dd><a href="半自磨机.html">半自磨机</a></dd>
+                  <dd><a href="球磨机.html">球磨机</a></dd>
+                  <dd><a href="鄂式破碎机.html">鄂式破碎机</a></dd>
+                  <dd><a href="板式给料机.html">板式给料机</a></dd>
+                  <dd><a href="皮带运输机.html">皮带运输机</a></dd>
+                  <dd><a href="铅浮选.html">铅浮选</a></dd>
+                  <dd><a href="锌硫分选.html">锌硫分选</a></dd>
+                  <dd><a href="1#鼓风机.html">1#鼓风机</a></dd>
+                  <dd><a href="2#鼓风机.html">2#鼓风机</a></dd>
+                </dl>
+              </dd>
+              <dd><a href="监控报警.html">监控报警</a></dd>
+            </dl>
+          </li>
+          <!-- 生产调度 -->
+          <li class="layui-nav-item">
+            <a href="javascript:;">生产调度</a>
+            <dl class="layui-nav-child">
+              <dd><a href="javascript:">生产看板</a>
+                <dl class="layui-nav-child">
+                  <dd><a href="生产周报调度.html">生产周报调度</a></dd>
+                  <dd><a href="生产日报调度.html">生产日报调度</a></dd>
+                  <dd><a href="生产调度台账.html">生产调度台账</a></dd>
+                </dl>
+              </dd>
+              <dd><a href="调度报表.html">调度报表</a></dd>
+              <dd><a href="交接班信息.html">交接班信息</a></dd>
+              <dd><a href="设备维修记录.html">调度记录</a></dd>
+              <dd><a href="设备维修调度.html">设备维修调度</a></dd>
+            </dl>
+          </li>
+          <!-- 生产统计 -->
+          <li class="layui-nav-item">
+            <a href="javascript:;">生产统计</a>
+            <dl class="layui-nav-child">
+              <dd><a href="生产日报.html">生产日报</a></dd>
+              <dd><a href="生产周报.html">生产周报</a></dd>
+              <dd><a href="生产月报.html">生产月报</a></dd>
+            </dl>
+          </li>
+          <!-- 设备运行 -->
+          <li class="layui-nav-item">
+            <a href="javascript:;">设备运行</a>
+            <dl class="layui-nav-child">
+              <dd><a href="javascript:;">设备台账</a>
+                <dl class="layui-nav-child">
+                  <dd><a href="原料输送站.html">原料输送站</a></dd>
+                  <dd><a href="javascript:;">破碎车间</a>
+                    <dl class="layui-nav-child">
+                      <dd><a href="筛分站.html">筛分站</a></dd>
+                      <dd><a href="干选站.html">干选站</a></dd>
+                    </dl>
+                  </dd>
+                  <dd><a href="磨选车间.html">磨选车间</a></dd>
+                  <dd><a href="过滤车间.html">过滤车间</a></dd>
+                  <dd><a href="精矿库.html">精矿库</a></dd>
+                  <dd><a href="尾矿库.html">尾矿库</a></dd>
+                </dl>
+              </dd>
+              <dd><a href="javascript:">设备停机分析</a>
+                <dl class="layui-nav-child">
+                  <dd><a href="粗碎工艺.html">粗碎工艺</a></dd>
+                  <dd><a href="选矿工艺.html">选矿工艺</a></dd>
+                </dl>
+              </dd>
+              <dd><a href="javascript:;">设备运时统计</a>
+                <dl class="layui-nav-child">
+                  <dd><a href="设备运时日统计.html">设备运时日统计</a></dd>
+                  <dd><a href="设备运时月统计.html">设备运时月统计</a></dd>
+                  <dd><a href="设备运时年统计.html">设备运时年统计</a></dd>
+                </dl>
+              </dd>
+              <dd><a href="javascript:;">设备停机统计</a>
+                <dl class="layui-nav-child">
+                  <dd><a href="设备停机日统计.html">设备停机日统计</a></dd>
+                  <dd><a href="设备停机月统计.html">设备停机月统计</a></dd>
+                  <dd><a href="设备停机年统计.html">设备停机年统计</a></dd>
+                </dl>
+              </dd>
+              <dd><a href="javascript:;">设备运行维护</a>
+                <dl class="layui-nav-child">
+
+              <dd><a href="设备维修记录.html">设备维修记录</a></dd>
+              </dl>
+              </dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item">
+            <a href="javascript:;">质量管理</a>
+            <dl class="layui-nav-child">
+              <dd><a href="生产质量数据统计.html">生产质量数据统计</a></dd>
+              <dd><a href="产品品位分析.html">产品品位分析</a></dd>
+              <dd><a href="化验报告生成.html">化验报告生成</a></dd>
+              <dd><a href="化验数据管理.html">化验数据管理</a></dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item">
+            <a href="javascript:;">能源管理</a>
+            <dl class="layui-nav-child">
+              <dd><a href="能源分配.html">能源分配</a></dd>
+              <dd><a href="能源监控.html">能源监控</a></dd>
+              <dd><a href="能源统计.html">能源统计</a></dd>
+              <dd><a href="设备能耗分析.html">设备能耗分析</a></dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item">
+            <a href="javascript:;">辅助决策</a>
+            <dl class="layui-nav-child">
+              <dd><a href="javascript:;">选厂生产分析</a>
+                <dl class="layui-nav-child">
+                  <dd><a href="破碎生产分析.html">破碎生产分析</a></dd>
+                  <dd><a href="选矿生产分析.html">选矿生产分析</a></dd>
+                  <dd><a href="精尾生产分析.html">精尾生产分析</a></dd>
+                </dl>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- 内容主体区域 -->
+    <div class="layui-body">
+      <div class="layui-card">
+        <div class="layui-card-body">
+          <ul class="layui-row layui-col-space10 layui-this">
+            <li class="layui-col-md4">
+              <br>
+              <p>破碎工艺流程监控</p><br>
+              <div><a href="破碎.html"><img src="images/破碎bg.png"></a></div>
+
+
+            </li>
+            <li class="layui-col-md4">
+              <br>
+              <p>球磨工艺流程监控</p><br>
+              <div><a href="球磨.html"><img src="images/bodybg.png" ></a></div>
+
+
+            </li>
+            <li class="layui-col-md4">
+              <br>
+              <p>选别工艺流程监控</p><br>
+              <div><a href="选别.html"><img src="images/选别主页.png"></a></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <script>
+
+  </script>
+</body>
+
+</html>
